@@ -30,13 +30,15 @@ app.use((req,res,next)=>{
 })
 app.use(express.json())
 
+const friendsRouter =express.Router();
+app.use('/friends',friendsRouter);
 
-app.get('/friends',(req,res)=>{
+friendsRouter.get('/',(req,res)=>{
     res.statusCode = 200 ;
     res.json(friends);
 })
 
-app.get('/friends/:friendId',(req,res)=>{
+friendsRouter.get('/:friendId',(req,res)=>{
     const id = +req.params.friendId;
     const friend = friends[id];
     if(friend){
@@ -47,7 +49,7 @@ app.get('/friends/:friendId',(req,res)=>{
         res.json({error:'user not found...'})
     }
 })
-app.post('/friends',(req,res)=>{
+friendsRouter.post('/',(req,res)=>{
     
     if(!req.body?.name){
         res.status(400).json({error : 'missing name ...'});
@@ -61,9 +63,13 @@ app.post('/friends',(req,res)=>{
         res.json(friends);
     }
 })
-
-app.get('/messages',(req,res)=>{
+const messagesRouter = express.Router();
+app.use('/messages',messagesRouter);
+app.get('/',(req,res)=>{
     res.send('<ul><li>hello every one ... </li></ul>')
+})
+app.post('/',(req,res)=>{
+    res.send('messages posted...')
 })
 
 
