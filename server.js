@@ -65,10 +65,10 @@ friendsRouter.post('/',(req,res)=>{
 })
 const messagesRouter = express.Router();
 app.use('/messages',messagesRouter);
-app.get('/',(req,res)=>{
+messagesRouter.get('/',(req,res)=>{
     res.send('<ul><li>hello every one ... </li></ul>')
 })
-app.post('/',(req,res)=>{
+messagesRouter.post('/',(req,res)=>{
     res.send('messages posted...')
 })
 
